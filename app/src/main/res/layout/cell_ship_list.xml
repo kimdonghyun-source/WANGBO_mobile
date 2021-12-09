@@ -5,25 +5,39 @@
     android:paddingTop="5dp"
     android:paddingLeft="3dp"
     android:paddingBottom="5dp"
+
+    android:background="@drawable/p_round"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
         android:orientation="horizontal">
-
-
 
         <TextView
             android:paddingLeft="3dp"
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_itm_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:maxLines="1"
+            android:layout_gravity="center"
+            android:gravity="center|left"
+            android:textSize="15dp"
+            android:textColor="@color/black"/>
+
+
+        <!--<TextView
+            android:paddingLeft="3dp"
+            android:id="@+id/tv_itm_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxLines="1"
             android:layout_gravity="center|left"
             android:textSize="15dp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"/>-->
 
     </LinearLayout>
 
@@ -33,62 +47,59 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.3"/>
+
+        <TextView
+            android:maxLength="1"
+            android:id="@+id/tv_itm_size"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:text="의뢰:"
+            android:gravity="center|left"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
+
         <TextView
-            android:id="@+id/et_sp_qty"
+            android:id="@+id/tv_tot_qty"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7"
+            android:background="@drawable/fill_rect_f5edb0"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:gravity="center"
-            android:text="재고:"
-            android:textColor="@color/black"
-            android:textSize="15dp" />
-
-        <TextView
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:id="@+id/et_stock_qty"
             android:layout_width="0dp"
-            android:gravity="center"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"/>
-
-        <TextView
-            android:text="스캔:"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:layout_gravity="center"
-            android:textSize="15dp"
+            android:layout_weight="0.1"
+            android:text="/"
             android:gravity="center"
             android:textColor="@color/black"/>
 
+
         <TextView
+            android:background="@drawable/fill_rect_f5edb0"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:gravity="center"
-            android:id="@+id/et_scan_qty"
+            android:id="@+id/tv_qty"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7"
             android:layout_marginRight="3dp"/>
+
+        <ImageButton
+            android:id="@id/bt_search"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/trans"
+            android:src="@drawable/popup_bt_search" />
 
     </LinearLayout>
 
