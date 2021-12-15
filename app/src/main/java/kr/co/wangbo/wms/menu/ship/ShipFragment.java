@@ -2,6 +2,9 @@ package kr.co.wangbo.wms.menu.ship;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -74,6 +77,10 @@ public class ShipFragment extends CommonFragment {
     ShipReqModel.Item mShipReqModel;
     List<ShipReqModel.Item> mShipReqList;
 
+    private SoundPool sound_pool;
+    int soundId;
+    MediaPlayer mediaPlayer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +113,8 @@ public class ShipFragment extends CommonFragment {
         bt_search.setOnClickListener(onClickListener);
         bt_next.setOnClickListener(onClickListener);
 
-        /*getCurrentMacAddress();
-        Log.d("맥주소???", getCurrentMacAddress());*/
+        sound_pool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+        soundId = sound_pool.load(mContext, R.raw.beepum, 1);
 
         return v;
 
@@ -205,10 +212,15 @@ public class ShipFragment extends CommonFragment {
                     break;
 
                 case R.id.bt_next:
+                    int chk = 0;
+                    bt_next.setEnabled(false);
                     if (mAdapter != null) {
-
                         for (int i = 0; i < mAdapter.getItemCount(); i++) {
                             if (mShipList.get(i).getP_qty_r() == mShipList.get(i).getChg_qty_r()) {
+                                chk++;
+                            }
+                        }
+                            if (mAdapter.getItemCount() == chk) {
                                 if (mAdapter.getItemCount() > 1){
                                     mTwoBtnPopup = new TwoBtnPopup(getActivity(), "'" + tv_cst_name.getText().toString() + "'으로 '" + mShipModel.getItems().get(0).getItm_name()
                                             + "'외" + mAdapter.getItemCount() + "개 품목 출하처리를 하시겠습니까?"
@@ -217,8 +229,10 @@ public class ShipFragment extends CommonFragment {
                                         public void handleMessage(Message msg) {
                                             if (msg.what == 1) {
                                                 requestShipSave();
+                                                bt_next.setEnabled(true);
                                                 mTwoBtnPopup.hideDialog();
-
+                                            }else {
+                                                bt_next.setEnabled(true);
                                             }
                                         }
                                     });
@@ -230,8 +244,10 @@ public class ShipFragment extends CommonFragment {
                                         public void handleMessage(Message msg) {
                                             if (msg.what == 1) {
                                                 requestShipSave();
+                                                bt_next.setEnabled(true);
                                                 mTwoBtnPopup.hideDialog();
-
+                                            }else {
+                                                bt_next.setEnabled(true);
                                             }
                                         }
                                     });
@@ -243,12 +259,15 @@ public class ShipFragment extends CommonFragment {
                                     public void handleMessage(Message msg) {
                                         if (msg.what == 1) {
                                             requestShipSave();
+                                            bt_next.setEnabled(true);
                                             mTwoBtnPopup.hideDialog();
+                                        }else {
+                                            bt_next.setEnabled(true);
                                         }
                                     }
                                 });
                             }
-                        }
+
 
 
                     }
@@ -294,6 +313,9 @@ public class ShipFragment extends CommonFragment {
 
                         } else {
                             Utils.Toast(mContext, model.getMSG());
+                            sound_pool.play(soundId, 1f, 1f, 0, 1, 1f);
+                            mediaPlayer = MediaPlayer.create(mContext, R.raw.beepum);
+                            mediaPlayer.start();
                         }
                     }
                 } else {
@@ -335,7 +357,11 @@ public class ShipFragment extends CommonFragment {
                                 @Override
                                 public void handleMessage(Message msg) {
                                     if (msg.what == 1) {
+                                        sound_pool.play(soundId, 1f, 1f, 0, 1, 1f);
+                                        mediaPlayer = MediaPlayer.create(mContext, R.raw.beepum);
+                                        mediaPlayer.start();
                                         mOneBtnPopup.hideDialog();
+
                                     }
                                 }
                             });
